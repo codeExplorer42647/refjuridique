@@ -486,7 +486,7 @@
             <div class="card-header">
                 <h1 class="card-title">
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        Générateur de références HEX (7+1) - Enhanced
+                        Générateur de références juridiques
                         <svg class="icon" id="status-icon" viewBox="0 0 24 24">
                             <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                             <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
@@ -517,6 +517,16 @@
                             <option value="S">S — Successoral / Héritage</option>
                             <option value="I">I — Immobilier</option>
                             <option value="A">A — Académique / Étudiant</option>
+                            <option value="P">P — Pénal</option>
+                            <option value="T">T — Travail</option>
+                            <option value="F">F — Fiscal</option>
+                            <option value="E">E — Environnement</option>
+                            <option value="D">D — Douane / Commerce</option>
+                            <option value="R">R — Réglementaire</option>
+                            <option value="O">O — Consommation</option>
+                            <option value="G">G — Gestion familiale</option>
+                            <option value="H">H — Habitation locative</option>
+                            <option value="L">L — Loi spéciale / autre</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -595,7 +605,7 @@
                 <div class="form-group">
                     <label>Référence générée</label>
                     <textarea class="result-textarea" id="result" readonly placeholder="—"></textarea>
-                    <p class="text-xs text-slate-500 mt-1">Format garanti : <span class="font-mono">^[0-9A-F]{7}[CMSIA]$</span></p>
+                    <p class="text-xs text-slate-500 mt-1">Format garanti : <span class="font-mono">^[0-9A-F]{7}[CMSIAPTFEDROGHL]$</span></p>
                 </div>
 
                 <div id="error-message" class="error hidden"></div>
@@ -680,7 +690,7 @@
 
     <script>
         const VERSION = "v1";
-        const ID_REGEX = /^[0-9A-F]{7}[CMSIA]$/;
+        const ID_REGEX = /^[0-9A-F]{7}[CMSIAPTFEDROGHL]$/;
 
         const LS_IDS = "hexRef:ids";
         const LS_BASE_INDEX = "hexRef:baseIndex";
@@ -839,8 +849,8 @@
 
         function assertTypeLetter(t) {
             const up = t.toUpperCase();
-            if (!["C", "M", "S", "I", "A"].includes(up)) {
-                throw new Error("Type invalide : doit être C, M, S, I ou A");
+            if (!["C", "M", "S", "I", "A", "P", "T", "F", "E", "D", "R", "O", "G", "H", "L"].includes(up)) {
+                throw new Error("Type invalide : doit être C, M, S, I, A, P, T, F, E, D, R, O, G, H ou L");
             }
         }
 
@@ -1018,7 +1028,7 @@
 
             return (
                 secret.length > 0 &&
-                ["C", "M", "S", "I", "A"].includes(type) &&
+                ["C", "M", "S", "I", "A", "P", "T", "F", "E", "D", "R", "O", "G", "H", "L"].includes(type) &&
                 /^\d{4}-\d{2}-\d{2}$/.test(date) &&
                 jur.length > 0 &&
                 canal.length > 0
